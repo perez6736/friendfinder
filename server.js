@@ -1,25 +1,28 @@
-// the basic express server start up goes here. 
+// ==============================================================================
+// DEPENDENCIES
 
-var express = require('express');
+var express = require("express");
 var bodyParser = require("body-parser");
-var path = require("path");
 
 var app = express();
-var PORT = 3000;
+
+// Sets an initial port. We"ll use this later in our listener
+var PORT = process.env.PORT || 3000;
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//routing 
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "app/public/home.html"));
-  });
+// ================================================================================
+// ROUTER
 
-  app.get("/survey", function(req, res) {
-    res.sendFile(path.join(__dirname, "app/public/survey.html"));
-  });
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
 
 
+// =============================================================================
+// LISTENER
 
-app.listen(PORT);
+app.listen(PORT, function() {
+  console.log("App listening on PORT: " + PORT);
+});
