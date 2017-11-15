@@ -189,6 +189,7 @@
     $("#submit").on("click", function(event){
         var arrayOfAnswers = [];
 
+        // loop through each question and push the answer to an array. 
         for(i=1; i<11; i++){
             arrayOfAnswers.push($('#q'+ i).val());
         }
@@ -198,6 +199,10 @@
             "photo":$("#photo").val().trim(),
             "scores":arrayOfAnswers
           }
+
+        console.log(newFriend);
+
+        // need to $.post() the newfriend object to the api/friends route
     });
 
 </script>

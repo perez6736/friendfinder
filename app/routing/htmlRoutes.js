@@ -16,7 +16,7 @@ module.exports = function(app) {
 
     // catch all sends back to home
     app.get("*", function(req, res) {
-    res.sendFile(path.join(_dirname, "../public/home.html"));
+    res.sendFile(path.join(__dirname, "../public/home.html"));
     });
 
 };
