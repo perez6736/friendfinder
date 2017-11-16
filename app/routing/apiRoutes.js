@@ -22,7 +22,7 @@ module.exports = function(app) {
         
         friends.push(req.body);
         
-        matchFriend(matchedFriend, matchedFriendDifference, req);
+        matchedFriend = matchFriend(matchedFriend, matchedFriendDifference, req);
 
         // this is undefined even after the function is called? why/ 
         res.json(matchedFriend);
@@ -33,7 +33,7 @@ module.exports = function(app) {
 function matchFriend (match, matchTotal, user){
     
     friends.forEach(function(friend){
-        var totalOfDifferenceArray;
+        var totalOfDifferenceArray = 0;
         var differenceArray = [];
 
         // we need to loop through the scores and get the difference 
@@ -63,9 +63,6 @@ function matchFriend (match, matchTotal, user){
             matchTotal = totalOfDifferenceArray; 
         }
 
-        else{
-            console.log("This is the matched friend " + match); 
-        }
-
     });
+    return match; 
 }
