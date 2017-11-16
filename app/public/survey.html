@@ -191,28 +191,29 @@
 
         // loop through each question and push the answer to an array. 
         for(i=1; i<11; i++){
-            arrayOfAnswers.push($('#q'+ i).val());
+            var intVal = parseInt($('#q'+ i).val());
+            arrayOfAnswers.push(intVal);
         }
 
         var newFriend = {
             "name": $("#name").val().trim(),
-            "photo":$("#photo").val().trim(),
-            "scores":arrayOfAnswers
+            "photo": $("#photo").val().trim(),
+            "scores": arrayOfAnswers
           }
 
         console.log(newFriend);
 
         // need to $.post() the newfriend object to the api/friends route
 
-        $.post("/api/Routes", newFriend, function(){
+        $.post("/api/routes", newFriend, function(data){
             console.log("you posted to the server!");
         
-            $("#name").val("");
-            $("#photo").val("");
+            // $("#name").val("");
+            // $("#photo").val("");
 
-            for(i=1; i<11; i++){
-                $('#q'+ i).val("");
-            }
+            // for(i=1; i<11; i++){
+            //     $('#q'+ i).val("");
+            // }
 
         });
     });
