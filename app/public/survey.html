@@ -169,8 +169,32 @@
         <br>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit">
+        <button type="submit" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal" id="submit">
     Submit</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">It's a match! </h4>
+        </div>
+        <div class="modal-body">
+            <p id = "match-name"></p>
+            <p class = "match-photo-container"> 
+                <img id= "match-photo" src="" alt="Smiley face" height="42" width="42"> 
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
     <hr>
     <footer class="footer">
@@ -200,8 +224,8 @@
             "scores": arrayOfAnswers
           }
 
-        // need to $.post() the newfriend object to the api/friends route
 
+        // used this to debug. 
         // $.ajax({
         //     type:    "POST",
         //     url:     "/api/routes",
@@ -217,18 +241,22 @@
         //     }
         // });
 
-
+        // post to the server the new friend object 
         $.post("/api/routes", newFriend, function(data){
             console.log(data);
             console.log("you posted to the server!");
             
             // clears the values in the html 
-            // $("#name").val("");
-            // $("#photo").val("");
+            $("#name").val("");
+            $("#photo").val("");
 
-            // for(i=1; i<11; i++){
-            //     $('#q'+ i).val("");
-            // }
+            for(i=1; i<11; i++){
+                $('#q'+ i).val("");
+            }
+
+            // put the data in the modal and display it. 
+            $("#match-name").val(data.name);
+            $("#match-photo").attr("src", data.photo);
         });
     });
 
