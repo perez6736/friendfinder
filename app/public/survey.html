@@ -191,8 +191,7 @@
 
         // loop through each question and push the answer to an array. 
         for(i=1; i<11; i++){
-            var intVal = parseInt($('#q'+ i).val());
-            arrayOfAnswers.push(intVal);
+            arrayOfAnswers.push($('#q'+ i).val().trim());
         }
 
         var newFriend = {
@@ -203,18 +202,34 @@
 
         // need to $.post() the newfriend object to the api/friends route
 
-        $.post("/api/routes", newFriend, function(data){
-            console.log("you posted to the server!");
-        
-            // $("#name").val("");
-            // $("#photo").val("");
-
-            // for(i=1; i<11; i++){
-            //     $('#q'+ i).val("");
-            // }
-
-            console.log(data);
+        $.ajax({
+            type:    "POST",
+            url:     "/api/routes",
+            data:    newFriend,
+            success: function(data) {
+                    alert('call back');
+            },
+            // vvv---- This is the new bit
+            error:   function(jqXHR, textStatus, errorThrown) {
+                    alert("Error, status = " + textStatus + ", " +
+                        "error thrown: " + errorThrown
+                    );
+            }
         });
+
+
+        // $.post("/api/routes", newFriend, function(data, status){
+        //     console.log(status);
+        //     console.log(data);
+        //     console.log("you posted to the server!");
+        
+        //     // $("#name").val("");
+        //     // $("#photo").val("");
+
+        //     // for(i=1; i<11; i++){
+        //     //     $('#q'+ i).val("");
+        //     // }
+        // });
     });
 
 </script>

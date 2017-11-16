@@ -29,8 +29,6 @@ module.exports = function(app) {
     });
 };
 
-
-
 function matchFriend (match, matchTotal, user){
     
     friends.forEach(function(friend){
