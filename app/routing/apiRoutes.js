@@ -20,11 +20,11 @@ module.exports = function(app) {
             req.body.scores[i] = parseInt(req.body.scores[i]);
         }
         
-        friends.push(req.body);
-        
         matchedFriend = matchFriend(matchedFriend, matchedFriendDifference, req);
 
-        // this is undefined even after the function is called? why/ 
+        // need to push the user into the array after we find a match. 
+        friends.push(req.body);
+
         res.json(matchedFriend);
         
     });
