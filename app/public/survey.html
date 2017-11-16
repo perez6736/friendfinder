@@ -12,6 +12,13 @@
             margin-top: 15px;
             margin-bottom: 15px;
         }
+
+        #match-photo {
+            height: 100%;
+            width: 75%;
+            margin-left: 25%;
+        }
+
     </style>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -179,13 +186,12 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">It's a match! </h4>
         </div>
         <div class="modal-body">
             <p id = "match-name"></p>
             <p class = "match-photo-container"> 
-                <img id= "match-photo" src="" alt="Smiley face" height="42" width="42"> 
+                <img id= "match-photo" src="http://www.movieactors.com/photos-stars/adam-sandler-madison57.jpg" alt="Smiley face" height="42" width="42"> 
             </p>
         </div>
         <div class="modal-footer">
@@ -255,8 +261,10 @@
             }
 
             // put the data in the modal and display it. 
-            $("#match-name").val(data.name);
+            $("#match-name").html("<b>" + data.name + "</b>");
             $("#match-photo").attr("src", data.photo);
+
+            $('#myModal').modal('show');
         });
     });
 
