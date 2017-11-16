@@ -191,7 +191,7 @@
         <div class="modal-body">
             <p id = "match-name"></p>
             <p class = "match-photo-container"> 
-                <img id= "match-photo" src=""> 
+                <img id= "match-photo" src="" onerror="imgError();"> 
             </p>
             <p id= "error-message"></p>
         </div>
@@ -216,6 +216,12 @@
 </html>
 
 <script>
+
+    // function to hide broken images because broken images are ugly. 
+    // didnt know how to do this in jquery but this works. 
+    function imgError(){
+        document.getElementById("match-photo").style.visibility = "hidden";
+    }
 
     function isThereMissingDropDownAnswer(){
         for(i=1; i<11; i++){
@@ -285,6 +291,7 @@
                 // hide error related stuff 
                 $("#error-message").hide();
                 $("#match-photo").show();
+
                 $("#match-name").show(); 
 
                 // put the data in the modal and display it. 
@@ -292,9 +299,8 @@
                 $("#match-name").html("<b>" + data.name + "</b>");
                 $("#match-photo").attr("src", data.photo);
 
-                $("#match-photo").onerror = function(){
-                    $("#match-photo").hide();
-                }
+                // if there is an image we should show it 
+                document.getElementById("match-photo").style.visibility = "visible";
 
                 $('#myModal').modal('show');
             });
