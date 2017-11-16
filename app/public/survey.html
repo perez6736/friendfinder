@@ -201,8 +201,6 @@
             "scores": arrayOfAnswers
           }
 
-        console.log(newFriend);
-
         // need to $.post() the newfriend object to the api/friends route
 
         $.post("/api/routes", newFriend, function(data){
@@ -215,6 +213,7 @@
             //     $('#q'+ i).val("");
             // }
 
+            console.log(data);
         });
     });
 
