@@ -219,11 +219,11 @@
 
     function isThereMissingDropDownAnswer(){
         for(i=1; i<11; i++){
-            if($('#q'+ i).val() === ""){
+            if($('#q'+ i).val().trim() === ""){
                 return true;
             }
         }
-        return true; 
+        return false; 
     }
 
     $("#submit").on("click", function(event){
@@ -239,8 +239,6 @@
             "photo": $("#photo").val().trim(),
             "scores": arrayOfAnswers
           }
-
-
 
         // used this to debug. 
         // $.ajax({
@@ -258,12 +256,16 @@
         //     }
         // });
 
+
         // if the required fields are empty dont post 
         if($("#name").val().trim() === "" || $("#photo").val().trim() == "" || isThereMissingDropDownAnswer()){
-            
+            //hide the match related stuff. 
+            $("#match-photo").hide();
+            $("#match-name").hide();
+
+            $("#error-message").show();
             $(".title-of-modal").html("Whoops");
             $("#error-message").html("Please fill in the required fields");
-            $("#match-photo").hide();
             $('#myModal').modal('show'); 
         }
 
@@ -280,14 +282,19 @@
                     $('#q'+ i).val("");
                 }
 
-                // put the data in the modal and display it. 
-                $(".title-of-modal").html("It's a match!");
+                // hide error related stuff 
                 $("#error-message").hide();
                 $("#match-photo").show();
+                $("#match-name").show(); 
+
+                // put the data in the modal and display it. 
+                $(".title-of-modal").html("It's a match!");
                 $("#match-name").html("<b>" + data.name + "</b>");
                 $("#match-photo").attr("src", data.photo);
 
-
+                $("#match-photo").onerror = function(){
+                    $("#match-photo").hide();
+                }
 
                 $('#myModal').modal('show');
             });
