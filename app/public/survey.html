@@ -202,34 +202,34 @@
 
         // need to $.post() the newfriend object to the api/friends route
 
-        $.ajax({
-            type:    "POST",
-            url:     "/api/routes",
-            data:    newFriend,
-            success: function(data) {
-                    alert('call back');
-            },
-            // vvv---- This is the new bit
-            error:   function(jqXHR, textStatus, errorThrown) {
-                    alert("Error, status = " + textStatus + ", " +
-                        "error thrown: " + errorThrown
-                    );
-            }
-        });
-
-
-        // $.post("/api/routes", newFriend, function(data, status){
-        //     console.log(status);
-        //     console.log(data);
-        //     console.log("you posted to the server!");
-        
-        //     // $("#name").val("");
-        //     // $("#photo").val("");
-
-        //     // for(i=1; i<11; i++){
-        //     //     $('#q'+ i).val("");
-        //     // }
+        // $.ajax({
+        //     type:    "POST",
+        //     url:     "/api/routes",
+        //     data:    newFriend,
+        //     success: function(data) {
+        //             alert(data);
+        //     },
+        //     // vvv---- This is the new bit
+        //     error:   function(jqXHR, textStatus, errorThrown) {
+        //             alert("Error, status = " + textStatus + ", " +
+        //                 "error thrown: " + errorThrown
+        //             );
+        //     }
         // });
+
+
+        $.post("/api/routes", newFriend, function(data){
+            console.log(data);
+            console.log("you posted to the server!");
+            
+            // clears the values in the html 
+            // $("#name").val("");
+            // $("#photo").val("");
+
+            // for(i=1; i<11; i++){
+            //     $('#q'+ i).val("");
+            // }
+        });
     });
 
 </script>

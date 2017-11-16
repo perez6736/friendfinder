@@ -24,6 +24,7 @@ module.exports = function(app) {
         
         matchFriend(matchedFriend, matchedFriendDifference, req);
 
+        // this is undefined even after the function is called? why/ 
         res.json(matchedFriend);
         
     });
@@ -63,7 +64,7 @@ function matchFriend (match, matchTotal, user){
         }
 
         else{
-            console.log(match); 
+            console.log("This is the matched friend " + match); 
         }
 
     });
