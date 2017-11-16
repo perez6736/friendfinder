@@ -16,7 +16,7 @@
         #match-photo {
             height: 100%;
             width: 75%;
-            margin-left: 25%;
+            margin-left: 11%;
         }
 
     </style>
@@ -186,13 +186,14 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-            <h4 class="modal-title">It's a match! </h4>
+            <h4 class="modal-title title-of-modal"></h4>
         </div>
         <div class="modal-body">
             <p id = "match-name"></p>
             <p class = "match-photo-container"> 
-                <img id= "match-photo" src="http://www.movieactors.com/photos-stars/adam-sandler-madison57.jpg" alt="Smiley face" height="42" width="42"> 
+                <img id= "match-photo" src=""> 
             </p>
+            <p id= "error-message"></p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -216,6 +217,15 @@
 
 <script>
 
+    function isThereMissingDropDownAnswer(){
+        for(i=1; i<11; i++){
+            if($('#q'+ i).val() === ""){
+                return true;
+            }
+        }
+        return true; 
+    }
+
     $("#submit").on("click", function(event){
         var arrayOfAnswers = [];
 
@@ -229,6 +239,7 @@
             "photo": $("#photo").val().trim(),
             "scores": arrayOfAnswers
           }
+
 
 
         // used this to debug. 
@@ -247,25 +258,41 @@
         //     }
         // });
 
-        // post to the server the new friend object 
-        $.post("/api/routes", newFriend, function(data){
-            console.log(data);
-            console.log("you posted to the server!");
+        // if the required fields are empty dont post 
+        if($("#name").val().trim() === "" || $("#photo").val().trim() == "" || isThereMissingDropDownAnswer()){
             
-            // clears the values in the html 
-            $("#name").val("");
-            $("#photo").val("");
+            $(".title-of-modal").html("Whoops");
+            $("#error-message").html("Please fill in the required fields");
+            $("#match-photo").hide();
+            $('#myModal').modal('show'); 
+        }
 
-            for(i=1; i<11; i++){
-                $('#q'+ i).val("");
-            }
+        else{
+            $.post("/api/routes", newFriend, function(data){
+                console.log(data);
+                console.log("you posted to the server!");
+                
+                // clears the values in the html 
+                $("#name").val("");
+                $("#photo").val("");
 
-            // put the data in the modal and display it. 
-            $("#match-name").html("<b>" + data.name + "</b>");
-            $("#match-photo").attr("src", data.photo);
+                for(i=1; i<11; i++){
+                    $('#q'+ i).val("");
+                }
 
-            $('#myModal').modal('show');
-        });
+                // put the data in the modal and display it. 
+                $(".title-of-modal").html("It's a match!");
+                $("#error-message").hide();
+                $("#match-photo").show();
+                $("#match-name").html("<b>" + data.name + "</b>");
+                $("#match-photo").attr("src", data.photo);
+
+
+
+                $('#myModal').modal('show');
+            });
+        }
+
     });
 
 </script>
